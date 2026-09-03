@@ -5,21 +5,147 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f7f8fa;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background: #f8fafc;
+  color: #111827;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  width: 100%;
+  height: 76px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 7%;
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
   color: #111827;
 }
 
-button,
-input {
-  font: inherit;
+header button {
+  border: none;
+  background: #111827;
+  color: white;
+
+  padding: 12px 22px;
+  border-radius: 10px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: 0.2s ease;
 }
 
-button {
-  cursor: pointer;
+header button:hover {
+  background: #374151;
+  transform: translateY(-1px);
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+/* Hero */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  padding: 110px 30px 80px;
+
+  text-align: center;
+}
+
+main h2 {
+  max-width: 850px;
+  margin: 0 auto;
+
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -3px;
+  font-weight: 800;
+
+  color: #111827;
+}
+
+main p {
+  margin: 25px auto 35px;
+
+  max-width: 650px;
+
+  font-size: 20px;
+  line-height: 1.6;
+
+  color: #6b7280;
+}
+
+/* Search */
+main input {
+  width: min(600px, 100%);
+
+  padding: 18px 22px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+
+  background: white;
+
+  font-size: 17px;
+  color: #111827;
+
+  outline: none;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+
+  transition: 0.2s ease;
+}
+
+main input::placeholder {
+  color: #9ca3af;
+}
+
+main input:focus {
+  border-color: #111827;
+  box-shadow: 0 8px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  header {
+    height: 68px;
+    padding: 0 20px;
+  }
+
+  header h1 {
+    font-size: 24px;
+  }
+
+  header button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  main {
+    padding: 85px 20px 60px;
+  }
+
+  main h2 {
+    font-size: 44px;
+    letter-spacing: -2px;
+  }
+
+  main p {
+    font-size: 17px;
+    margin: 22px auto 30px;
+  }
+
+  main input {
+    padding: 16px 18px;
+    font-size: 16px;
+  }
 }
