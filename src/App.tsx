@@ -1,99 +1,54 @@
 import { useMemo, useState } from "react";
-import {
-  Search,
-  ShoppingBag,
-  Heart,
-  User,
-  ChevronRight,
-  Star,
-  Menu,
-  X,
-  Store,
-} from "lucide-react";
-import "./index.css";
 
 type Product = {
   id: number;
   name: string;
   company: string;
   category: string;
-  price: number;
-  rating: number;
+  price: string;
   emoji: string;
 };
 
 const products: Product[] = [
   {
     id: 1,
-    name: "Handgjort armband",
-    company: "Nordic Threads UF",
-    category: "Mode",
-    price: 149,
-    rating: 4.9,
-    emoji: "📿",
-  },
-  {
-    id: 2,
-    name: "Doftljus",
-    company: "Luma UF",
-    category: "Hem",
-    price: 99,
-    rating: 4.8,
+    name: "Handgjorda ljus",
+    company: "Nordic Candle UF",
+    category: "Inredning",
+    price: "149 kr",
     emoji: "🕯️",
   },
   {
-    id: 3,
+    id: 2,
     name: "Personlig poster",
-    company: "Designa UF",
+    company: "Design UF",
     category: "Design",
-    price: 129,
-    rating: 5.0,
-    emoji: "🖼️",
+    price: "199 kr",
+    emoji: "🎨",
+  },
+  {
+    id: 3,
+    name: "Träningsschema",
+    company: "Fit UF",
+    category: "Tjänster",
+    price: "99 kr",
+    emoji: "🏋️",
   },
   {
     id: 4,
-    name: "Chokladbox",
-    company: "Sweet UF",
-    category: "Mat",
-    price: 179,
-    rating: 4.7,
-    emoji: "🍫",
-  },
-  {
-    id: 5,
-    name: "Tygkasse",
-    company: "GreenBag UF",
+    name: "Armband",
+    company: "Young Style UF",
     category: "Mode",
-    price: 89,
-    rating: 4.8,
-    emoji: "👜",
+    price: "79 kr",
+    emoji: "📿",
   },
-  {
-    id: 6,
-    name: "Mobilhållare",
-    company: "Smart UF",
-    category: "Teknik",
-    price: 119,
-    rating: 4.6,
-    emoji: "📱",
-  },
-];
-
-const categories = [
-  "Alla",
-  "Mode",
-  "Hem",
-  "Design",
-  "Mat",
-  "Teknik",
 ];
 
 function App() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Alla");
-  const [favorites, setFavorites] = useState<number[]>([]);
-  const [cart, setCart] = useState<number[]>([]);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [sellerOpen, setSellerOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -108,149 +63,125 @@ function App() {
     });
   }, [search, category]);
 
-  function toggleFavorite(id: number) {
-    setFavorites((current) =>
-      current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id]
-    );
-  }
-
-  function addToCart(id: number) {
-    setCart((current) => [...current, id]);
-  }
+  const scrollToProducts = () => {
+    document
+      .getElementById("products")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div className="app">
-      {/* HEADER */}
-      <header className="header">
-        <div className="header-inner">
-          <button
-            className="mobile-menu"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+      {/* NAVBAR */}
+      <header className="navbar">
+        <div className="logo">ClickToFind</div>
 
-          <div className="logo">ClickToFind</div>
+        <nav>
+          <button onClick={scrollToProducts}>Upptäck</button>
+          <button onClick={() => setCategory("Tjänster")}>Tjänster</button>
+          <button onClick={() => setCategory("Mode")}>Mode</button>
+          <button onClick={() => setCategory("Inredning")}>Inredning</button>
+        </nav>
 
-          <nav className={`nav ${menuOpen ? "open" : ""}`}>
-            <button onClick={() => setCategory("Alla")}>Upptäck</button>
-            <button onClick={() => setCategory("Mode")}>Mode</button>
-            <button onClick={() => setCategory("Hem")}>Hem</button>
-            <button onClick={() => setCategory("Design")}>Design</button>
-            <button onClick={() => setCategory("Mat")}>Mat</button>
-          </nav>
-
-          <div className="header-actions">
-            <button className="icon-button" title="Favoriter">
-              <Heart size={21} />
-              {favorites.length > 0 && (
-                <span className="badge">{favorites.length}</span>
-              )}
-            </button>
-
-            <button className="icon-button" title="Varukorg">
-              <ShoppingBag size={21} />
-              {cart.length > 0 && (
-                <span className="badge">{cart.length}</span>
-              )}
-            </button>
-
-            <button className="login-button">
-              <User size={18} />
-              Logga in
-            </button>
-
-            <button className="seller-button">
-              <Store size={18} />
-              Bli säljare
-            </button>
-          </div>
-        </div>
+        <button className="seller-button" onClick={() => setSellerOpen(true)}>
+          Bli säljare
+        </button>
       </header>
 
       {/* HERO */}
       <main>
         <section className="hero">
           <div className="hero-content">
-            <div className="eyebrow">
-              🇸🇪 Sveriges UF-marknadsplats
-            </div>
+            <div className="badge">🇸🇪 Sveriges UF-marknadsplats</div>
 
             <h1>
-              Upptäck nästa
-              <span> stora UF-företag.</span>
+              Upptäck framtidens
+              <span> entreprenörer.</span>
             </h1>
 
             <p>
-              Handla unika produkter och tjänster från unga entreprenörer
-              över hela Sverige.
+              Hitta unika produkter och tjänster från UF-företag över hela
+              Sverige.
             </p>
 
             <div className="search-box">
-              <Search size={22} />
+              <span>⌕</span>
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Vad letar du efter?"
               />
-              {search && (
-                <button onClick={() => setSearch("")}>
-                  <X size={20} />
-                </button>
-              )}
+              <button onClick={scrollToProducts}>Sök</button>
+            </div>
+
+            <div className="hero-buttons">
+              <button className="primary-button" onClick={scrollToProducts}>
+                Utforska produkter →
+              </button>
+
+              <button
+                className="secondary-button"
+                onClick={() => setSellerOpen(true)}
+              >
+                Sälj på ClickToFind
+              </button>
             </div>
           </div>
         </section>
 
         {/* CATEGORIES */}
-        <section className="categories-section">
+        <section className="categories">
           <div className="section-heading">
             <div>
-              <p className="small-title">Utforska</p>
+              <span>UPPTÄCK</span>
               <h2>Vad letar du efter?</h2>
             </div>
           </div>
 
-          <div className="categories">
-            {categories.map((item) => (
-              <button
-                key={item}
-                className={category === item ? "category active" : "category"}
-                onClick={() => setCategory(item)}
-              >
-                {item}
-              </button>
-            ))}
+          <div className="category-grid">
+            {["Alla", "Mode", "Inredning", "Design", "Tjänster"].map(
+              (item) => (
+                <button
+                  key={item}
+                  className={`category-card ${
+                    category === item ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setCategory(item);
+                    setTimeout(scrollToProducts, 50);
+                  }}
+                >
+                  <strong>
+                    {item === "Alla" && "✨"}
+                    {item === "Mode" && "👕"}
+                    {item === "Inredning" && "🏠"}
+                    {item === "Design" && "🎨"}
+                    {item === "Tjänster" && "💼"}
+                  </strong>
+
+                  <span>{item}</span>
+                  <small>Utforska →</small>
+                </button>
+              )
+            )}
           </div>
         </section>
 
         {/* PRODUCTS */}
-        <section className="products-section">
-          <div className="section-heading">
+        <section className="products-section" id="products">
+          <div className="section-heading product-heading">
             <div>
-              <p className="small-title">Populärt just nu</p>
-              <h2>
-                {search
-                  ? `Resultat för "${search}"`
-                  : "Upptäck nya favoriter"}
-              </h2>
+              <span>MARKNADSPLATS</span>
+              <h2>Populärt just nu</h2>
             </div>
 
-            <button
-              className="view-all"
-              onClick={() => {
-                setSearch("");
-                setCategory("Alla");
-              }}
-            >
-              Visa alla <ChevronRight size={18} />
-            </button>
+            <p>
+              {filteredProducts.length}{" "}
+              {filteredProducts.length === 1 ? "resultat" : "resultat"}
+            </p>
           </div>
 
           {filteredProducts.length === 0 ? (
-            <div className="empty">
+            <div className="no-results">
               <div>🔎</div>
               <h3>Vi hittade inget</h3>
               <p>Testa att söka efter något annat.</p>
@@ -267,47 +198,22 @@ function App() {
             <div className="product-grid">
               {filteredProducts.map((product) => (
                 <article className="product-card" key={product.id}>
-                  <div className="product-image">
-                    <span>{product.emoji}</span>
-
-                    <button
-                      className={
-                        favorites.includes(product.id)
-                          ? "favorite active"
-                          : "favorite"
-                      }
-                      onClick={() => toggleFavorite(product.id)}
-                    >
-                      <Heart
-                        size={19}
-                        fill={
-                          favorites.includes(product.id)
-                            ? "currentColor"
-                            : "none"
-                        }
-                      />
-                    </button>
-                  </div>
+                  <div className="product-image">{product.emoji}</div>
 
                   <div className="product-info">
-                    <p className="company">{product.company}</p>
+                    <span className="product-category">
+                      {product.category}
+                    </span>
 
                     <h3>{product.name}</h3>
 
-                    <div className="rating">
-                      <Star size={15} fill="currentColor" />
-                      {product.rating}
-                    </div>
+                    <p className="company">{product.company}</p>
 
                     <div className="product-bottom">
-                      <strong>{product.price} kr</strong>
+                      <strong>{product.price}</strong>
 
-                      <button
-                        className="add-button"
-                        onClick={() => addToCart(product.id)}
-                      >
-                        <ShoppingBag size={17} />
-                        Lägg till
+                      <button onClick={() => setSelectedProduct(product)}>
+                        Visa produkt
                       </button>
                     </div>
                   </div>
@@ -320,24 +226,98 @@ function App() {
         {/* SELLER CTA */}
         <section className="seller-cta">
           <div>
-            <p className="small-title">Driver du UF?</p>
-            <h2>Sälj dina produkter på ClickToFind.</h2>
+            <span>DRIVER DU UF-FÖRETAG?</span>
+            <h2>Få dina produkter framför fler kunder.</h2>
             <p>
-              Skapa din butik och nå kunder över hela Sverige.
+              Lägg upp dina produkter och tjänster gratis. Vi tar endast
+              provision när du säljer.
             </p>
           </div>
 
-          <button className="cta-button">
-            Bli säljare <ChevronRight size={19} />
+          <button onClick={() => setSellerOpen(true)}>
+            Bli säljare →
           </button>
         </section>
       </main>
 
-      {/* FOOTER */}
+      {/* SELLER MODAL */}
+      {sellerOpen && (
+        <div className="modal-overlay" onClick={() => setSellerOpen(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="close-button"
+              onClick={() => setSellerOpen(false)}
+            >
+              ×
+            </button>
+
+            <span className="modal-label">BLI SÄLJARE</span>
+            <h2>Sälj på ClickToFind</h2>
+
+            <p>
+              Skapa en butik för ditt UF-företag och nå nya kunder över hela
+              Sverige.
+            </p>
+
+            <input placeholder="Företagsnamn" />
+            <input placeholder="E-postadress" />
+
+            <button
+              className="primary-button full-width"
+              onClick={() => {
+                alert("Tack! Vi återkommer med mer information.");
+                setSellerOpen(false);
+              }}
+            >
+              Skicka intresse →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* PRODUCT MODAL */}
+      {selectedProduct && (
+        <div
+          className="modal-overlay"
+          onClick={() => setSelectedProduct(null)}
+        >
+          <div className="modal product-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="close-button"
+              onClick={() => setSelectedProduct(null)}
+            >
+              ×
+            </button>
+
+            <div className="modal-product-image">
+              {selectedProduct.emoji}
+            </div>
+
+            <span className="modal-label">{selectedProduct.category}</span>
+
+            <h2>{selectedProduct.name}</h2>
+
+            <p className="company">{selectedProduct.company}</p>
+
+            <div className="modal-price">{selectedProduct.price}</div>
+
+            <button
+              className="primary-button full-width"
+              onClick={() =>
+                alert(
+                  `Du har valt ${selectedProduct.name}. Köp-funktionen kopplas på när vi lägger till riktiga UF-butiker.`
+                )
+              }
+            >
+              Köp / Kontakta säljaren
+            </button>
+          </div>
+        </div>
+      )}
+
       <footer>
-        <div className="footer-logo">ClickToFind</div>
-        <p>Marknadsplatsen för Sveriges UF-företag.</p>
-        <span>© 2026 ClickToFind</span>
+        <strong>ClickToFind</strong>
+        <p>En marknadsplats för Sveriges UF-företag.</p>
       </footer>
     </div>
   );
