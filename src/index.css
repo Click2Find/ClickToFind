@@ -11,9 +11,7 @@ body {
 }
 
 button,
-input,
-textarea,
-select {
+input {
   font: inherit;
 }
 
