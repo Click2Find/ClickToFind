@@ -1,400 +1,326 @@
-import { Routes, Route, Link, useNavigate, useParams } from "react-router-dom";
-import { Search, ArrowRight, Store, ShoppingBag, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
-const products = [
+type Product = {
+  id: number;
+  name: string;
+  company: string;
+  category: string;
+  price: string;
+  emoji: string;
+};
+
+const products: Product[] = [
   {
-    id: "1",
-    name: "Premium Hoodie",
-    company: "Nordic UF",
-    price: 399,
-    category: "Mode",
-    description: "En stilren och bekväm hoodie från Nordic UF.",
-  },
-  {
-    id: "2",
+    id: 1,
     name: "Handgjorda ljus",
-    company: "Luma UF",
-    price: 149,
+    company: "Nordic Candle UF",
     category: "Inredning",
-    description: "Handgjorda ljus med exklusiva dofter.",
+    price: "149 kr",
+    emoji: "🕯️",
   },
   {
-    id: "3",
-    name: "Logotyp & Design",
-    company: "Creative UF",
-    price: 499,
+    id: 2,
+    name: "Personlig poster",
+    company: "Design UF",
+    category: "Design",
+    price: "199 kr",
+    emoji: "🎨",
+  },
+  {
+    id: 3,
+    name: "Träningsschema",
+    company: "Fit UF",
     category: "Tjänster",
-    description: "Professionell grafisk design för ditt företag.",
+    price: "99 kr",
+    emoji: "🏋️",
   },
   {
-    id: "4",
-    name: "Personligt armband",
-    company: "Bead UF",
-    price: 99,
-    category: "Accessoarer",
-    description: "Personliga handgjorda armband.",
+    id: 4,
+    name: "Armband",
+    company: "Young Style UF",
+    category: "Mode",
+    price: "79 kr",
+    emoji: "📿",
   },
 ];
 
-function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  return (
-    <header className="header">
-      <Link to="/" className="logo">
-        ClickToFind
-      </Link>
-
-      <nav className={menuOpen ? "nav open" : "nav"}>
-        <Link to="/" onClick={() => setMenuOpen(false)}>
-          Hem
-        </Link>
-
-        <Link to="/utforska" onClick={() => setMenuOpen(false)}>
-          Utforska
-        </Link>
-
-        <Link to="/om" onClick={() => setMenuOpen(false)}>
-          Om oss
-        </Link>
-
-        <Link
-          to="/salj"
-          className="seller-button"
-          onClick={() => setMenuOpen(false)}
-        >
-          Bli säljare
-        </Link>
-      </nav>
-
-      <button
-        className="menu-button"
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        {menuOpen ? <X size={25} /> : <Menu size={25} />}
-      </button>
-    </header>
-  );
-}
-
-function Home() {
-  const navigate = useNavigate();
+function App() {
   const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("Alla");
+  const [sellerOpen, setSellerOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  function handleSearch(e: React.FormEvent) {
-    e.preventDefault();
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchesSearch =
+        product.name.toLowerCase().includes(search.toLowerCase()) ||
+        product.company.toLowerCase().includes(search.toLowerCase());
 
-    if (search.trim()) {
-      navigate(`/utforska?search=${encodeURIComponent(search)}`);
-    } else {
-      navigate("/utforska");
-    }
-  }
+      const matchesCategory =
+        category === "Alla" || product.category === category;
 
-  return (
-    <>
-      <section className="hero">
-        <div className="hero-content">
-          <div className="badge">🇸🇪 Sveriges UF-marknadsplats</div>
+      return matchesSearch && matchesCategory;
+    });
+  }, [search, category]);
 
-          <h1>
-            Upptäck Sveriges
-            <span> UF-företag.</span>
-          </h1>
+  const scrollToProducts = () => {
+    document
+      .getElementById("products")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
-          <p>
-            Hitta produkter och tjänster från unga entreprenörer.
-            Upptäck något nytt och stöd nästa generations företagare.
-          </p>
-
-          <form className="search-box" onSubmit={handleSearch}>
-            <Search size={22} />
-
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Vad letar du efter?"
-            />
-
-            <button type="submit">Sök</button>
-          </form>
-
-          <div className="hero-buttons">
-            <button onClick={() => navigate("/utforska")} className="primary">
-              Utforska företag
-              <ArrowRight size={19} />
-            </button>
-
-            <button onClick={() => navigate("/salj")} className="secondary">
-              <Store size={19} />
-              Bli säljare
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
-          <div>
-            <p className="small-title">UTVALT</p>
-            <h2>Populärt just nu</h2>
-          </div>
-
-          <Link to="/utforska" className="view-all">
-            Visa alla <ArrowRight size={17} />
-          </Link>
-        </div>
-
-        <div className="product-grid">
-          {products.slice(0, 3).map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
-
-function Explore() {
-  const [search, setSearch] = useState("");
-
-  const filteredProducts = products.filter(
-    (product) =>
-      product.name.toLowerCase().includes(search.toLowerCase()) ||
-      product.company.toLowerCase().includes(search.toLowerCase()) ||
-      product.category.toLowerCase().includes(search.toLowerCase())
-  );
-
-  return (
-    <section className="page">
-      <div className="page-header">
-        <p className="small-title">MARKNADSPLATS</p>
-        <h1>Utforska UF-företag</h1>
-        <p>
-          Hitta produkter och tjänster från unga entreprenörer över hela
-          Sverige.
-        </p>
-      </div>
-
-      <div className="explore-search">
-        <Search size={21} />
-        <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Sök produkter, företag eller kategorier..."
-        />
-      </div>
-
-      <div className="categories">
-        <button onClick={() => setSearch("")}>Alla</button>
-        <button onClick={() => setSearch("Mode")}>Mode</button>
-        <button onClick={() => setSearch("Inredning")}>Inredning</button>
-        <button onClick={() => setSearch("Tjänster")}>Tjänster</button>
-        <button onClick={() => setSearch("Accessoarer")}>Accessoarer</button>
-      </div>
-
-      <div className="product-grid">
-        {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-
-      {filteredProducts.length === 0 && (
-        <div className="empty">
-          <h3>Inga resultat hittades</h3>
-          <p>Testa att söka efter något annat.</p>
-        </div>
-      )}
-    </section>
-  );
-}
-
-function ProductCard({ product }: { product: (typeof products)[0] }) {
-  return (
-    <Link to={`/produkt/${product.id}`} className="product-card">
-      <div className="product-image">
-        <ShoppingBag size={42} />
-      </div>
-
-      <div className="product-info">
-        <span>{product.category}</span>
-        <h3>{product.name}</h3>
-        <p>{product.company}</p>
-
-        <div className="product-bottom">
-          <strong>{product.price} kr</strong>
-          <span>Visa →</span>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function ProductPage() {
-  const { id } = useParams();
-  const product = products.find((item) => item.id === id);
-
-  if (!product) {
-    return (
-      <section className="page empty">
-        <h1>Produkten hittades inte</h1>
-        <Link to="/utforska" className="primary">
-          Tillbaka till utforska
-        </Link>
-      </section>
-    );
-  }
-
-  return (
-    <section className="page product-page">
-      <Link to="/utforska" className="back">
-        ← Tillbaka
-      </Link>
-
-      <div className="product-detail">
-        <div className="large-product-image">
-          <ShoppingBag size={80} />
-        </div>
-
-        <div>
-          <span className="category">{product.category}</span>
-
-          <h1>{product.name}</h1>
-
-          <p className="company-name">{product.company}</p>
-
-          <p className="description">{product.description}</p>
-
-          <h2>{product.price} kr</h2>
-
-          <button
-            className="primary buy-button"
-            onClick={() => alert("Beställningsfunktionen kommer snart!")}
-          >
-            Intresserad? Kontakta företaget
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Sell() {
-  return (
-    <section className="page">
-      <div className="seller-page">
-        <div>
-          <p className="small-title">FÖR UF-FÖRETAG</p>
-
-          <h1>
-            Sälj på
-            <span> ClickToFind.</span>
-          </h1>
-
-          <p>
-            Lägg upp dina produkter eller tjänster helt gratis och nå kunder
-            över hela Sverige.
-          </p>
-
-          <ul>
-            <li>✓ Gratis att skapa företagsprofil</li>
-            <li>✓ Lägg upp produkter och tjänster</li>
-            <li>✓ Nå fler kunder</li>
-            <li>✓ Vi tar endast provision vid försäljning</li>
-          </ul>
-        </div>
-
-        <div className="seller-box">
-          <h2>Kom igång</h2>
-
-          <input placeholder="Företagsnamn" />
-          <input placeholder="E-postadress" />
-          <input placeholder="Telefonnummer" />
-
-          <button
-            className="primary full"
-            onClick={() => alert("Tack! Registreringen kommer snart.")}
-          >
-            Skapa säljarkonto
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function About() {
-  return (
-    <section className="page">
-      <div className="about">
-        <p className="small-title">OM OSS</p>
-
-        <h1>
-          En plats för
-          <span> Sveriges UF-företag.</span>
-        </h1>
-
-        <p>
-          ClickToFind är en digital marknadsplats skapad för att göra det
-          enklare att upptäcka och handla från Sveriges unga entreprenörer.
-        </p>
-
-        <div className="about-grid">
-          <div>
-            <h2>Vårt mål</h2>
-            <p>
-              Vi vill ge UF-företag större möjligheter att synas och samtidigt
-              göra det enklare för kunder att hitta nya produkter och tjänster.
-            </p>
-          </div>
-
-          <div>
-            <h2>För företagare</h2>
-            <p>
-              UF-företag ska kunna fokusera på sin verksamhet medan ClickToFind
-              hjälper dem att nå nya kunder.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Footer() {
-  return (
-    <footer>
-      <div className="footer-logo">ClickToFind</div>
-
-      <div className="footer-links">
-        <Link to="/">Hem</Link>
-        <Link to="/utforska">Utforska</Link>
-        <Link to="/salj">Bli säljare</Link>
-        <Link to="/om">Om oss</Link>
-      </div>
-
-      <p>© 2026 ClickToFind. Skapad för Sveriges UF-företag.</p>
-    </footer>
-  );
-}
-
-export default function App() {
   return (
     <div className="app">
-      <Header />
+      {/* NAVBAR */}
+      <header className="navbar">
+        <div className="logo">ClickToFind</div>
 
+        <nav>
+          <button onClick={scrollToProducts}>Upptäck</button>
+          <button onClick={() => setCategory("Tjänster")}>Tjänster</button>
+          <button onClick={() => setCategory("Mode")}>Mode</button>
+          <button onClick={() => setCategory("Inredning")}>Inredning</button>
+        </nav>
+
+        <button className="seller-button" onClick={() => setSellerOpen(true)}>
+          Bli säljare
+        </button>
+      </header>
+
+      {/* HERO */}
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/utforska" element={<Explore />} />
-          <Route path="/salj" element={<Sell />} />
-          <Route path="/om" element={<About />} />
-          <Route path="/produkt/:id" element={<ProductPage />} />
-        </Routes>
+        <section className="hero">
+          <div className="hero-content">
+            <div className="badge">🇸🇪 Sveriges UF-marknadsplats</div>
+
+            <h1>
+              Upptäck framtidens
+              <span> entreprenörer.</span>
+            </h1>
+
+            <p>
+              Hitta unika produkter och tjänster från UF-företag över hela
+              Sverige.
+            </p>
+
+            <div className="search-box">
+              <span>⌕</span>
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Vad letar du efter?"
+              />
+              <button onClick={scrollToProducts}>Sök</button>
+            </div>
+
+            <div className="hero-buttons">
+              <button className="primary-button" onClick={scrollToProducts}>
+                Utforska produkter →
+              </button>
+
+              <button
+                className="secondary-button"
+                onClick={() => setSellerOpen(true)}
+              >
+                Sälj på ClickToFind
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* CATEGORIES */}
+        <section className="categories">
+          <div className="section-heading">
+            <div>
+              <span>UPPTÄCK</span>
+              <h2>Vad letar du efter?</h2>
+            </div>
+          </div>
+
+          <div className="category-grid">
+            {["Alla", "Mode", "Inredning", "Design", "Tjänster"].map(
+              (item) => (
+                <button
+                  key={item}
+                  className={`category-card ${
+                    category === item ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setCategory(item);
+                    setTimeout(scrollToProducts, 50);
+                  }}
+                >
+                  <strong>
+                    {item === "Alla" && "✨"}
+                    {item === "Mode" && "👕"}
+                    {item === "Inredning" && "🏠"}
+                    {item === "Design" && "🎨"}
+                    {item === "Tjänster" && "💼"}
+                  </strong>
+
+                  <span>{item}</span>
+                  <small>Utforska →</small>
+                </button>
+              )
+            )}
+          </div>
+        </section>
+
+        {/* PRODUCTS */}
+        <section className="products-section" id="products">
+          <div className="section-heading product-heading">
+            <div>
+              <span>MARKNADSPLATS</span>
+              <h2>Populärt just nu</h2>
+            </div>
+
+            <p>
+              {filteredProducts.length}{" "}
+              {filteredProducts.length === 1 ? "resultat" : "resultat"}
+            </p>
+          </div>
+
+          {filteredProducts.length === 0 ? (
+            <div className="no-results">
+              <div>🔎</div>
+              <h3>Vi hittade inget</h3>
+              <p>Testa att söka efter något annat.</p>
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setCategory("Alla");
+                }}
+              >
+                Visa alla produkter
+              </button>
+            </div>
+          ) : (
+            <div className="product-grid">
+              {filteredProducts.map((product) => (
+                <article className="product-card" key={product.id}>
+                  <div className="product-image">{product.emoji}</div>
+
+                  <div className="product-info">
+                    <span className="product-category">
+                      {product.category}
+                    </span>
+
+                    <h3>{product.name}</h3>
+
+                    <p className="company">{product.company}</p>
+
+                    <div className="product-bottom">
+                      <strong>{product.price}</strong>
+
+                      <button onClick={() => setSelectedProduct(product)}>
+                        Visa produkt
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* SELLER CTA */}
+        <section className="seller-cta">
+          <div>
+            <span>DRIVER DU UF-FÖRETAG?</span>
+            <h2>Få dina produkter framför fler kunder.</h2>
+            <p>
+              Lägg upp dina produkter och tjänster gratis. Vi tar endast
+              provision när du säljer.
+            </p>
+          </div>
+
+          <button onClick={() => setSellerOpen(true)}>
+            Bli säljare →
+          </button>
+        </section>
       </main>
 
-      <Footer />
+      {/* SELLER MODAL */}
+      {sellerOpen && (
+        <div className="modal-overlay" onClick={() => setSellerOpen(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="close-button"
+              onClick={() => setSellerOpen(false)}
+            >
+              ×
+            </button>
+
+            <span className="modal-label">BLI SÄLJARE</span>
+            <h2>Sälj på ClickToFind</h2>
+
+            <p>
+              Skapa en butik för ditt UF-företag och nå nya kunder över hela
+              Sverige.
+            </p>
+
+            <input placeholder="Företagsnamn" />
+            <input placeholder="E-postadress" />
+
+            <button
+              className="primary-button full-width"
+              onClick={() => {
+                alert("Tack! Vi återkommer med mer information.");
+                setSellerOpen(false);
+              }}
+            >
+              Skicka intresse →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* PRODUCT MODAL */}
+      {selectedProduct && (
+        <div
+          className="modal-overlay"
+          onClick={() => setSelectedProduct(null)}
+        >
+          <div className="modal product-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="close-button"
+              onClick={() => setSelectedProduct(null)}
+            >
+              ×
+            </button>
+
+            <div className="modal-product-image">
+              {selectedProduct.emoji}
+            </div>
+
+            <span className="modal-label">{selectedProduct.category}</span>
+
+            <h2>{selectedProduct.name}</h2>
+
+            <p className="company">{selectedProduct.company}</p>
+
+            <div className="modal-price">{selectedProduct.price}</div>
+
+            <button
+              className="primary-button full-width"
+              onClick={() =>
+                alert(
+                  `Du har valt ${selectedProduct.name}. Köp-funktionen kopplas på när vi lägger till riktiga UF-butiker.`
+                )
+              }
+            >
+              Köp / Kontakta säljaren
+            </button>
+          </div>
+        </div>
+      )}
+
+      <footer>
+        <strong>ClickToFind</strong>
+        <p>En marknadsplats för Sveriges UF-företag.</p>
+      </footer>
     </div>
   );
 }
+
+export default App;
