@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, Heart, Instagram, Music2, Star } from "lucide-react";
 
-const FAVORITE_KEY = "clicktofind-favorite-candle";
+const FAVORITE_KEY = "clicktofind-favorite-handgjort-doftljus";
 
 export default function CompanyPage() {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -40,7 +40,6 @@ export default function CompanyPage() {
                 <div className="text-3xl font-bold tracking-wide text-[#626b4c]">
                   NC
                 </div>
-
                 <div className="mt-1 text-[9px] font-semibold tracking-[0.25em] text-[#858878]">
                   UF
                 </div>
@@ -136,13 +135,13 @@ export default function CompanyPage() {
                 />
 
                 <button
-                  aria-label={
-                    isFavorite
-                      ? "Ta bort från favoriter"
-                      : "Lägg till i favoriter"
-                  }
-                  onClick={toggleFavorite}
-                  className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md transition hover:scale-105"
+                  type="button"
+                  aria-label="Lägg till i favoriter"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite();
+                  }}
+                  className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md transition hover:scale-105"
                 >
                   <Heart
                     size={21}
@@ -167,6 +166,7 @@ export default function CompanyPage() {
                 </p>
 
                 <button
+                  type="button"
                   onClick={() => {
                     window.location.href =
                       window.location.pathname + "#product";
