@@ -1,4 +1,12 @@
-import { Search, ShoppingBag, User, Heart, Star, ArrowRight } from "lucide-react";
+import {
+  Search,
+  ShoppingBag,
+  User,
+  Heart,
+  Star,
+  ArrowRight,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -40,8 +48,13 @@ function ProductCard({
 }: {
   product: (typeof products)[number];
 }) {
+  const navigate = useNavigate();
+
   return (
-    <article className="group overflow-hidden rounded-2xl border border-[#e7e3d8] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article
+      onClick={() => navigate("/product")}
+      className="group cursor-pointer overflow-hidden rounded-2xl border border-[#e7e3d8] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+    >
       <div className="relative aspect-square overflow-hidden bg-[#f2f0e8]">
         <img
           src={product.image}
@@ -51,6 +64,7 @@ function ProductCard({
 
         <button
           aria-label="Lägg till i favoriter"
+          onClick={(e) => e.stopPropagation()}
           className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition hover:bg-white"
         >
           <Heart size={19} strokeWidth={1.8} />
@@ -95,6 +109,7 @@ export default function Home() {
               <div className="text-lg font-bold tracking-tight">
                 ClickToFind
               </div>
+
               <div className="text-[10px] uppercase tracking-[0.2em] text-[#888b78]">
                 Swedish UF Marketplace
               </div>
@@ -194,7 +209,10 @@ export default function Home() {
         </section>
 
         {/* HOT RIGHT NOW */}
-        <section id="hetast" className="mx-auto max-w-7xl px-5 py-14 lg:px-8">
+        <section
+          id="hetast"
+          className="mx-auto max-w-7xl px-5 py-14 lg:px-8"
+        >
           <div className="mb-7 flex items-end justify-between">
             <div>
               <p className="text-sm font-medium uppercase tracking-wider text-[#858974]">
@@ -214,13 +232,19 @@ export default function Home() {
 
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {products.map((product) => (
-              <ProductCard key={product.name} product={product} />
+              <ProductCard
+                key={product.name}
+                product={product}
+              />
             ))}
           </div>
         </section>
 
         {/* NEW PRODUCTS */}
-        <section id="nya" className="border-y border-[#e8e5dc] bg-[#f4f2eb]">
+        <section
+          id="nya"
+          className="border-y border-[#e8e5dc] bg-[#f4f2eb]"
+        >
           <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8">
             <div className="mb-7">
               <p className="text-sm font-medium uppercase tracking-wider text-[#858974]">
@@ -233,15 +257,24 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
-              {products.slice().reverse().map((product) => (
-                <ProductCard key={`new-${product.name}`} product={product} />
-              ))}
+              {products
+                .slice()
+                .reverse()
+                .map((product) => (
+                  <ProductCard
+                    key={`new-${product.name}`}
+                    product={product}
+                  />
+                ))}
             </div>
           </div>
         </section>
 
         {/* ALL PRODUCTS */}
-        <section id="alla" className="mx-auto max-w-7xl px-5 py-14 lg:px-8">
+        <section
+          id="alla"
+          className="mx-auto max-w-7xl px-5 py-14 lg:px-8"
+        >
           <div className="mb-7">
             <p className="text-sm font-medium uppercase tracking-wider text-[#858974]">
               Upptäck
@@ -267,7 +300,10 @@ export default function Home() {
       <footer className="border-t border-[#e5e2d9] bg-[#eeece4]">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <div>
-            <div className="font-semibold">ClickToFind</div>
+            <div className="font-semibold">
+              ClickToFind
+            </div>
+
             <p className="mt-1 text-sm text-[#77796f]">
               Sveriges marketplace för UF-företag.
             </p>
