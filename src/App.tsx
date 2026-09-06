@@ -1,10 +1,23 @@
+import { useEffect, useState } from "react";
 import Home from "./Home";
 import ProductDetail from "./ProductDetail";
 
 export default function App() {
-  const isProductPage = window.location.hash === "#product";
+  const [hash, setHash] = useState(window.location.hash);
 
-  if (isProductPage) {
+  useEffect(() => {
+    const handleHashChange = () => {
+      setHash(window.location.hash);
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  if (hash === "#product") {
     return <ProductDetail />;
   }
 
