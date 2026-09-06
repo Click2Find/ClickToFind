@@ -50,7 +50,7 @@ function ProductCard({
   return (
     <article
       onClick={() => {
-        window.location.hash = "product";
+        window.location.href = "#product";
       }}
       className="group cursor-pointer overflow-hidden rounded-2xl border border-[#e7e3d8] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
@@ -224,10 +224,7 @@ export default function Home() {
 
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {products.map((product) => (
-              <ProductCard
-                key={product.name}
-                product={product}
-              />
+              <ProductCard key={product.name} product={product} />
             ))}
           </div>
         </section>
