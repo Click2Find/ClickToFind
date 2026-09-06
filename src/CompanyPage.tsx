@@ -16,15 +16,18 @@ export default function CompanyPage() {
         </div>
       </header>
 
-      {/* Company hero */}
-      <section className="border-b border-[#e8e5dc] bg-[#f1efe6]">
-        <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
+      {/* Company banner */}
+      <section className="relative overflow-hidden border-b border-[#e8e5dc] bg-[#dfe2d3]">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#dfe2d3] via-[#e8e7dc] to-[#cdd2bf]" />
+
+        <div className="relative mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
           <div className="flex flex-col items-start gap-7">
             <div className="flex h-32 w-32 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-[#ddd9cc]">
               <div className="text-center">
                 <div className="text-3xl font-bold tracking-wide text-[#626b4c]">
                   NC
                 </div>
+
                 <div className="mt-1 text-[9px] font-semibold tracking-[0.25em] text-[#858878]">
                   UF
                 </div>
@@ -103,16 +106,14 @@ export default function CompanyPage() {
 
         {/* Products */}
         <section className="mt-16">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#858878]">
-                PRODUKTER
-              </p>
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#858878]">
+              PRODUKTER
+            </p>
 
-              <h2 className="mt-3 text-3xl font-bold tracking-tight">
-                Från Nordic Candle UF
-              </h2>
-            </div>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight">
+              Från Nordic Candle UF
+            </h2>
           </div>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
