@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { ArrowLeft, Heart, Instagram, Music2, Star } from "lucide-react";
 
 export default function CompanyPage() {
+  const [isFavorite, setIsFavorite] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#faf9f5] text-[#24271f]">
-      {/* Header */}
       <header className="border-b border-[#e8e5dc] bg-[#faf9f5]">
         <div className="mx-auto flex h-20 max-w-7xl items-center px-5 lg:px-8">
           <button
@@ -16,7 +18,6 @@ export default function CompanyPage() {
         </div>
       </header>
 
-      {/* Company banner */}
       <section className="relative overflow-hidden border-b border-[#e8e5dc] bg-[#dfe2d3]">
         <div className="absolute inset-0 bg-gradient-to-r from-[#dfe2d3] via-[#e8e7dc] to-[#cdd2bf]" />
 
@@ -54,7 +55,6 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      {/* About */}
       <main className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
         <section className="max-w-3xl">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#858878]">
@@ -88,7 +88,6 @@ export default function CompanyPage() {
           </div>
         </section>
 
-        {/* Delivery */}
         <section className="mt-16 rounded-3xl border border-[#e4e0d5] bg-white p-7 sm:p-9">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#858878]">
             LEVERANS
@@ -104,7 +103,6 @@ export default function CompanyPage() {
           </p>
         </section>
 
-        {/* Products */}
         <section className="mt-16">
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#858878]">
@@ -126,10 +124,19 @@ export default function CompanyPage() {
                 />
 
                 <button
-                  aria-label="Lägg till i favoriter"
+                  aria-label={
+                    isFavorite
+                      ? "Ta bort från favoriter"
+                      : "Lägg till i favoriter"
+                  }
+                  onClick={() => setIsFavorite(!isFavorite)}
                   className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md transition hover:scale-105"
                 >
-                  <Heart size={21} />
+                  <Heart
+                    size={21}
+                    fill={isFavorite ? "#ef4444" : "none"}
+                    color={isFavorite ? "#ef4444" : "#24271f"}
+                  />
                 </button>
               </div>
 
