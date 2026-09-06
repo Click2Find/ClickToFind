@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, Heart, Instagram, Music2, Star } from "lucide-react";
+
+const FAVORITE_KEY = "clicktofind-favorite-candle";
 
 export default function CompanyPage() {
   const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(localStorage.getItem(FAVORITE_KEY) === "true");
+  }, []);
+
+  const toggleFavorite = () => {
+    const newValue = !isFavorite;
+    setIsFavorite(newValue);
+    localStorage.setItem(FAVORITE_KEY, String(newValue));
+  };
 
   return (
     <div className="min-h-screen bg-[#faf9f5] text-[#24271f]">
@@ -129,7 +141,7 @@ export default function CompanyPage() {
                       ? "Ta bort från favoriter"
                       : "Lägg till i favoriter"
                   }
-                  onClick={() => setIsFavorite(!isFavorite)}
+                  onClick={toggleFavorite}
                   className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md transition hover:scale-105"
                 >
                   <Heart
