@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, Heart, ShoppingBag, Star } from "lucide-react";
 
-const FAVORITE_KEY = "clicktofind-favorite-candle";
+const FAVORITE_KEY = "clicktofind-favorite-handgjort-doftljus";
 
 export default function ProductDetail() {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -21,6 +21,7 @@ export default function ProductDetail() {
       <header className="border-b border-[#e8e5dc] bg-[#faf9f5]">
         <div className="mx-auto flex h-20 max-w-7xl items-center px-5 lg:px-8">
           <button
+            type="button"
             onClick={() => window.history.back()}
             className="flex items-center gap-2 text-sm font-semibold text-[#626b4c]"
           >
@@ -32,7 +33,7 @@ export default function ProductDetail() {
 
       <main className="mx-auto max-w-7xl px-5 py-10 lg:px-8 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-2">
-          <div className="relative overflow-hidden rounded-3xl bg-[#f2f0e8]">
+          <div className="overflow-hidden rounded-3xl bg-[#f2f0e8]">
             <img
               src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=80"
               alt="Handgjort doftljus"
@@ -42,6 +43,7 @@ export default function ProductDetail() {
 
           <div className="flex flex-col justify-center">
             <button
+              type="button"
               onClick={() => {
                 window.location.href =
                   window.location.pathname + "#company";
@@ -70,19 +72,19 @@ export default function ProductDetail() {
             </p>
 
             <div className="mt-8 flex gap-3">
-              <button className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#626b4c] px-6 py-4 font-semibold text-white transition hover:bg-[#535c40]">
+              <button
+                type="button"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#626b4c] px-6 py-4 font-semibold text-white transition hover:bg-[#535c40]"
+              >
                 <ShoppingBag size={20} />
                 Lägg i kundvagn
               </button>
 
               <button
-                aria-label={
-                  isFavorite
-                    ? "Ta bort från favoriter"
-                    : "Lägg till i favoriter"
-                }
+                type="button"
+                aria-label="Lägg till i favoriter"
                 onClick={toggleFavorite}
-                className="flex h-14 w-14 items-center justify-center rounded-xl border border-[#ddd9cc] bg-white transition hover:scale-105"
+                className="flex h-14 w-14 items-center justify-center rounded-xl border border-[#ddd9cc] bg-white"
               >
                 <Heart
                   size={21}
