@@ -1,6 +1,21 @@
+import { useEffect, useState } from "react";
 import { ArrowLeft, Heart, ShoppingBag, Star } from "lucide-react";
 
+const FAVORITE_KEY = "clicktofind-favorite-candle";
+
 export default function ProductDetail() {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(localStorage.getItem(FAVORITE_KEY) === "true");
+  }, []);
+
+  const toggleFavorite = () => {
+    const newValue = !isFavorite;
+    setIsFavorite(newValue);
+    localStorage.setItem(FAVORITE_KEY, String(newValue));
+  };
+
   return (
     <div className="min-h-screen bg-[#faf9f5] text-[#24271f]">
       <header className="border-b border-[#e8e5dc] bg-[#faf9f5]">
@@ -17,7 +32,7 @@ export default function ProductDetail() {
 
       <main className="mx-auto max-w-7xl px-5 py-10 lg:px-8 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-3xl bg-[#f2f0e8]">
+          <div className="relative overflow-hidden rounded-3xl bg-[#f2f0e8]">
             <img
               src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=80"
               alt="Handgjort doftljus"
@@ -61,10 +76,19 @@ export default function ProductDetail() {
               </button>
 
               <button
-                aria-label="Lägg till i favoriter"
-                className="flex h-14 w-14 items-center justify-center rounded-xl border border-[#ddd9cc] bg-white"
+                aria-label={
+                  isFavorite
+                    ? "Ta bort från favoriter"
+                    : "Lägg till i favoriter"
+                }
+                onClick={toggleFavorite}
+                className="flex h-14 w-14 items-center justify-center rounded-xl border border-[#ddd9cc] bg-white transition hover:scale-105"
               >
-                <Heart size={21} />
+                <Heart
+                  size={21}
+                  fill={isFavorite ? "#ef4444" : "none"}
+                  color={isFavorite ? "#ef4444" : "#24271f"}
+                />
               </button>
             </div>
           </div>
