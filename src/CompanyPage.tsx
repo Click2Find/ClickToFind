@@ -1,32 +1,9 @@
-import {
-  ArrowLeft,
-  Instagram,
-  Music2,
-  Star,
-} from "lucide-react";
-
-import logo from "./13A87637-9906-490C-AB18-3A188CE5688D.png";
-
-const companyProducts = [
-  {
-    name: "Handgjort doftljus",
-    price: 149,
-    rating: 4.8,
-    image:
-      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Presentljus",
-    price: 179,
-    rating: 4.9,
-    image:
-      "https://images.unsplash.com/photo-1602874801006-e26b9c7c9a2d?auto=format&fit=crop&w=800&q=80",
-  },
-];
+import { ArrowLeft, Instagram, Music2, Star } from "lucide-react";
 
 export default function CompanyPage() {
   return (
     <div className="min-h-screen bg-[#faf9f5] text-[#24271f]">
+      {/* Header */}
       <header className="border-b border-[#e8e5dc] bg-[#faf9f5]">
         <div className="mx-auto flex h-20 max-w-7xl items-center px-5 lg:px-8">
           <button
@@ -39,129 +16,144 @@ export default function CompanyPage() {
         </div>
       </header>
 
-      <main>
-        <section className="border-b border-[#e8e5dc] bg-[#f1eee5]">
-          <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="h-32 w-32 shrink-0 overflow-hidden rounded-full bg-white">
-                <img
-                  src={logo}
-                  alt="Nordic Candle UF logga"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-
-              <div>
-                <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#7b8065]">
-                  UF-företag
-                </p>
-
-                <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
-                  Nordic Candle UF
-                </h1>
-
-                <div className="mt-3 flex items-center gap-2 text-[#77796f]">
-                  <Star size={18} fill="currentColor" />
-                  <span className="font-medium">4.8</span>
-                  <span>•</span>
-                  <span>12 omdömen</span>
+      {/* Company hero */}
+      <section className="border-b border-[#e8e5dc] bg-[#f1efe6]">
+        <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
+          <div className="flex flex-col items-start gap-7">
+            <div className="flex h-32 w-32 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-[#ddd9cc]">
+              <div className="text-center">
+                <div className="text-3xl font-bold tracking-wide text-[#626b4c]">
+                  NC
+                </div>
+                <div className="mt-1 text-[9px] font-semibold tracking-[0.25em] text-[#858878]">
+                  UF
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        <section className="mx-auto max-w-7xl px-5 py-12 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[1fr_320px]">
             <div>
-              <p className="text-sm font-medium uppercase tracking-wider text-[#858974]">
-                Om företaget
+              <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#858878]">
+                UF-FÖRETAG
               </p>
 
-              <h2 className="mt-2 text-2xl font-semibold">
-                Handgjort med omtanke
-              </h2>
+              <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+                Nordic Candle UF
+              </h1>
 
-              <p className="mt-4 max-w-2xl leading-7 text-[#66685f]">
-                Nordic Candle UF skapar handgjorda doftljus med fokus på
-                kvalitet, design och en mysig känsla. Vi vill erbjuda
-                produkter som passar både till vardagen och som en fin gåva.
-              </p>
-
-              <div className="mt-6 flex gap-3">
-                <button
-                  aria-label="Instagram"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#ddd9cc] bg-white"
-                >
-                  <Instagram size={19} />
-                </button>
-
-                <button
-                  aria-label="TikTok"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#ddd9cc] bg-white"
-                >
-                  <Music2 size={19} />
-                </button>
+              <div className="mt-5 flex items-center gap-2 text-[#77796f]">
+                <Star size={19} fill="currentColor" />
+                <span className="font-medium">4.8</span>
+                <span>•</span>
+                <span>12 omdömen</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="rounded-2xl border border-[#e7e3d8] bg-white p-6">
-              <h3 className="font-semibold">
-                Leverans & hämtning
-              </h3>
+      {/* About */}
+      <main className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
+        <section className="max-w-3xl">
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#858878]">
+            OM FÖRETAGET
+          </p>
 
-              <p className="mt-3 text-sm leading-6 text-[#66685f]">
-                Leverans inom Sverige.
-                <br />
-                Upphämtning kan erbjudas enligt överenskommelse.
-              </p>
-            </div>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Handgjort med omtanke
+          </h2>
+
+          <p className="mt-6 text-lg leading-8 text-[#66685f]">
+            Nordic Candle UF skapar handgjorda doftljus med fokus på kvalitet,
+            design och en mysig känsla. Vi vill erbjuda produkter som passar
+            både till vardagen och som en fin gåva.
+          </p>
+
+          <div className="mt-8 flex gap-3">
+            <button
+              aria-label="Instagram"
+              className="flex h-14 w-14 items-center justify-center rounded-full border border-[#ddd9cc] bg-white"
+            >
+              <Instagram size={23} />
+            </button>
+
+            <button
+              aria-label="TikTok"
+              className="flex h-14 w-14 items-center justify-center rounded-full border border-[#ddd9cc] bg-white"
+            >
+              <Music2 size={23} />
+            </button>
           </div>
         </section>
 
-        <section className="border-t border-[#e8e5dc] bg-[#f4f2eb]">
-          <div className="mx-auto max-w-7xl px-5 py-12 lg:px-8">
-            <div className="mb-7">
-              <p className="text-sm font-medium uppercase tracking-wider text-[#858974]">
-                Nordic Candle UF
+        {/* Delivery */}
+        <section className="mt-16 rounded-3xl border border-[#e4e0d5] bg-white p-7 sm:p-9">
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#858878]">
+            LEVERANS
+          </p>
+
+          <h2 className="mt-3 text-2xl font-bold">
+            Leverans inom Sverige
+          </h2>
+
+          <p className="mt-3 leading-7 text-[#66685f]">
+            Leverans erbjuds inom Sverige. Upphämtning kan erbjudas enligt
+            överenskommelse.
+          </p>
+        </section>
+
+        {/* Products */}
+        <section className="mt-16">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#858878]">
+                PRODUKTER
               </p>
 
-              <h2 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">
-                Företagets produkter
+              <h2 className="mt-3 text-3xl font-bold tracking-tight">
+                Från Nordic Candle UF
               </h2>
             </div>
+          </div>
 
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
-              {companyProducts.map((product) => (
-                <article
-                  key={product.name}
-                  className="overflow-hidden rounded-2xl border border-[#e7e3d8] bg-white"
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <article className="overflow-hidden rounded-3xl border border-[#e4e0d5] bg-white">
+              <div className="flex h-64 items-center justify-center bg-[#f1efe6]">
+                <div className="text-center">
+                  <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-sm">
+                    <span className="text-4xl">🕯️</span>
+                  </div>
+
+                  <p className="mt-4 text-sm font-medium text-[#858878]">
+                    Nordic Candle UF
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <h3 className="text-xl font-bold">
+                  Handgjort doftljus
+                </h3>
+
+                <div className="mt-3 flex items-center gap-2 text-sm text-[#77796f]">
+                  <Star size={16} fill="currentColor" />
+                  <span>4.8</span>
+                </div>
+
+                <p className="mt-4 text-2xl font-bold">
+                  149 kr
+                </p>
+
+                <button
+                  onClick={() => {
+                    window.location.href =
+                      window.location.pathname + "#product";
+                  }}
+                  className="mt-5 w-full rounded-xl bg-[#626b4c] px-5 py-3 font-semibold text-white transition hover:bg-[#535c40]"
                 >
-                  <div className="aspect-square overflow-hidden bg-[#f2f0e8]">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-
-                  <div className="p-4">
-                    <h3 className="font-semibold">
-                      {product.name}
-                    </h3>
-
-                    <div className="mt-2 flex items-center gap-1 text-sm text-[#77796f]">
-                      <Star size={15} fill="currentColor" />
-                      <span>{product.rating}</span>
-                    </div>
-
-                    <p className="mt-3 text-lg font-bold">
-                      {product.price} kr
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
+                  Visa produkt
+                </button>
+              </div>
+            </article>
           </div>
         </section>
       </main>
