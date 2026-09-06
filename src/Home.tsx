@@ -50,7 +50,7 @@ function ProductCard({
   return (
     <article
       onClick={() => {
-        window.location.href = "./product";
+        window.location.hash = "product";
       }}
       className="group cursor-pointer overflow-hidden rounded-2xl border border-[#e7e3d8] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
