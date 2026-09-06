@@ -43,7 +43,6 @@ export default function CompanyPage() {
         <section className="border-b border-[#e8e5dc] bg-[#f1eee5]">
           <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              
               <div className="h-32 w-32 shrink-0 overflow-hidden rounded-full bg-white">
                 <img
                   src={logo}
@@ -107,7 +106,9 @@ export default function CompanyPage() {
             </div>
 
             <div className="rounded-2xl border border-[#e7e3d8] bg-white p-6">
-              <h3 className="font-semibold">Leverans & hämtning</h3>
+              <h3 className="font-semibold">
+                Leverans & hämtning
+              </h3>
 
               <p className="mt-3 text-sm leading-6 text-[#66685f]">
                 Leverans inom Sverige.
@@ -161,4 +162,9 @@ export default function CompanyPage() {
                 </article>
               ))}
             </div>
-          </
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
