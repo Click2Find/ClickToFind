@@ -6,7 +6,6 @@ import {
   Star,
   ArrowRight,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -48,11 +47,8 @@ function ProductCard({
 }: {
   product: (typeof products)[number];
 }) {
-  const navigate = useNavigate();
-
   return (
     <article
-      onClick={() => navigate("/product")}
       className="group cursor-pointer overflow-hidden rounded-2xl border border-[#e7e3d8] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       <div className="relative aspect-square overflow-hidden bg-[#f2f0e8]">
@@ -96,10 +92,8 @@ function ProductCard({
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#faf9f5] text-[#24271f]">
-      {/* HEADER */}
       <header className="sticky top-0 z-50 border-b border-[#e8e5dc] bg-[#faf9f5]/95 backdrop-blur">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
-          {/* LOGO */}
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[#a1a58a] bg-[#f2efe5] text-lg font-bold text-[#596044]">
               C2F
@@ -116,7 +110,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* DESKTOP NAV */}
           <nav className="hidden items-center gap-8 md:flex">
             <a
               href="#hetast"
@@ -140,7 +133,6 @@ export default function Home() {
             </a>
           </nav>
 
-          {/* ACTIONS */}
           <div className="flex items-center gap-2">
             <button
               aria-label="Sök"
@@ -166,7 +158,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO */}
       <main>
         <section className="border-b border-[#e8e5dc] bg-[#f1eee5]">
           <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
@@ -186,7 +177,6 @@ export default function Home() {
                 över hela Sverige.
               </p>
 
-              {/* SEARCH */}
               <div className="mt-9 flex max-w-2xl items-center rounded-2xl border border-[#ddd9cc] bg-white p-2 shadow-sm">
                 <Search
                   className="ml-3 text-[#7d806f]"
@@ -208,7 +198,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* HOT RIGHT NOW */}
         <section
           id="hetast"
           className="mx-auto max-w-7xl px-5 py-14 lg:px-8"
@@ -240,7 +229,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* NEW PRODUCTS */}
         <section
           id="nya"
           className="border-y border-[#e8e5dc] bg-[#f4f2eb]"
@@ -270,7 +258,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ALL PRODUCTS */}
         <section
           id="alla"
           className="mx-auto max-w-7xl px-5 py-14 lg:px-8"
@@ -296,13 +283,10 @@ export default function Home() {
         </section>
       </main>
 
-      {/* FOOTER */}
       <footer className="border-t border-[#e5e2d9] bg-[#eeece4]">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <div>
-            <div className="font-semibold">
-              ClickToFind
-            </div>
+            <div className="font-semibold">ClickToFind</div>
 
             <p className="mt-1 text-sm text-[#77796f]">
               Sveriges marketplace för UF-företag.
