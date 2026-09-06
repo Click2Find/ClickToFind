@@ -18,12 +18,12 @@ export default function App() {
     };
   }, []);
 
-  if (hash === "#product") {
-    return <ProductDetail />;
-  }
-
   if (hash === "#company") {
     return <CompanyPage />;
+  }
+
+  if (hash === "#product") {
+    return <ProductDetail />;
   }
 
   return <Home />;
