@@ -1,4 +1,4 @@
-import { ArrowLeft, Instagram, Music2, Star } from "lucide-react";
+import { ArrowLeft, Heart, Instagram, Music2, Star } from "lucide-react";
 
 export default function CompanyPage() {
   return (
@@ -118,12 +118,19 @@ export default function CompanyPage() {
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <article className="overflow-hidden rounded-3xl border border-[#e4e0d5] bg-white">
-              <div className="h-64 overflow-hidden bg-[#f1efe6]">
+              <div className="relative h-64 overflow-hidden bg-[#f1efe6]">
                 <img
                   src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=80"
                   alt="Handgjort doftljus"
                   className="h-full w-full object-cover"
                 />
+
+                <button
+                  aria-label="Lägg till i favoriter"
+                  className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md transition hover:scale-105"
+                >
+                  <Heart size={21} />
+                </button>
               </div>
 
               <div className="p-6">
