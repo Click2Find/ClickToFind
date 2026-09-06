@@ -26,12 +26,15 @@ export default function ProductDetail() {
           </div>
 
           <div className="flex flex-col justify-center">
-            <a
-              href="/company/nordic-candle-uf"
+            <button
+              onClick={() => {
+                window.location.href =
+                  window.location.pathname + "#company";
+              }}
               className="w-fit text-sm font-medium uppercase tracking-wider text-[#7b8065] hover:underline"
             >
               Nordic Candle UF
-            </a>
+            </button>
 
             <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
               Handgjort doftljus
