@@ -5,6 +5,8 @@ import {
   Star,
 } from "lucide-react";
 
+import logo from "./13A87637-9906-490C-AB18-3A188CE5688D.png";
+
 const companyProducts = [
   {
     name: "Handgjort doftljus",
@@ -41,8 +43,13 @@ export default function CompanyPage() {
         <section className="border-b border-[#e8e5dc] bg-[#f1eee5]">
           <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full border border-[#a1a58a] bg-[#f2efe5] text-2xl font-bold text-[#596044]">
-                NC
+              
+              <div className="h-32 w-32 shrink-0 overflow-hidden rounded-full bg-white">
+                <img
+                  src={logo}
+                  alt="Nordic Candle UF logga"
+                  className="h-full w-full object-cover"
+                />
               </div>
 
               <div>
@@ -154,9 +161,4 @@ export default function CompanyPage() {
                 </article>
               ))}
             </div>
-          </div>
-        </section>
-      </main>
-    </div>
-  );
-}
+          </
