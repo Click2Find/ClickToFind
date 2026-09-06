@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Search,
   ShoppingBag,
@@ -6,6 +7,8 @@ import {
   Star,
   ArrowRight,
 } from "lucide-react";
+
+const FAVORITE_KEY = "clicktofind-favorite-handgjort-doftljus";
 
 const products = [
   {
@@ -47,6 +50,29 @@ function ProductCard({
 }: {
   product: (typeof products)[number];
 }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const isCandle =
+    product.name === "Handgjort doftljus" &&
+    product.company === "Nordic Candle UF";
+
+  useEffect(() => {
+    if (isCandle) {
+      setIsFavorite(localStorage.getItem(FAVORITE_KEY) === "true");
+    }
+  }, [isCandle]);
+
+  const toggleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    if (!isCandle) return;
+
+    const newValue = !isFavorite;
+
+    setIsFavorite(newValue);
+    localStorage.setItem(FAVORITE_KEY, String(newValue));
+  };
+
   return (
     <article
       onClick={() => {
@@ -62,11 +88,17 @@ function ProductCard({
         />
 
         <button
+          type="button"
           aria-label="Lägg till i favoriter"
-          onClick={(e) => e.stopPropagation()}
-          className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition hover:bg-white"
+          onClick={toggleFavorite}
+          className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition hover:bg-white"
         >
-          <Heart size={19} strokeWidth={1.8} />
+          <Heart
+            size={19}
+            strokeWidth={1.8}
+            fill={isFavorite ? "#ef4444" : "none"}
+            color={isFavorite ? "#ef4444" : "#24271f"}
+          />
         </button>
       </div>
 
