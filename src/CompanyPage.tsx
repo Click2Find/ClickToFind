@@ -118,16 +118,12 @@ export default function CompanyPage() {
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <article className="overflow-hidden rounded-3xl border border-[#e4e0d5] bg-white">
-              <div className="flex h-64 items-center justify-center bg-[#f1efe6]">
-                <div className="text-center">
-                  <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-sm">
-                    <span className="text-4xl">🕯️</span>
-                  </div>
-
-                  <p className="mt-4 text-sm font-medium text-[#858878]">
-                    Nordic Candle UF
-                  </p>
-                </div>
+              <div className="h-64 overflow-hidden bg-[#f1efe6]">
+                <img
+                  src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=80"
+                  alt="Handgjort doftljus"
+                  className="h-full w-full object-cover"
+                />
               </div>
 
               <div className="p-6">
