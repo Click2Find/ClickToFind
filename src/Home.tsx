@@ -6,6 +6,7 @@ import {
   Star,
   ArrowRight,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -47,8 +48,11 @@ function ProductCard({
 }: {
   product: (typeof products)[number];
 }) {
+  const navigate = useNavigate();
+
   return (
     <article
+      onClick={() => navigate("/product")}
       className="group cursor-pointer overflow-hidden rounded-2xl border border-[#e7e3d8] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       <div className="relative aspect-square overflow-hidden bg-[#f2f0e8]">
