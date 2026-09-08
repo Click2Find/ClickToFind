@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Home from "./Home";
 import ProductDetail from "./ProductDetail";
 import CompanyPage from "./CompanyPage";
+import CartPage from "./CartPage";
 
 export default function App() {
   const [hash, setHash] = useState(window.location.hash);
@@ -24,6 +25,10 @@ export default function App() {
 
   if (hash === "#product") {
     return <ProductDetail />;
+  }
+
+  if (hash === "#cart") {
+    return <CartPage />;
   }
 
   return <Home />;
