@@ -3,6 +3,7 @@ import Home from "./Home";
 import ProductDetail from "./ProductDetail";
 import CompanyPage from "./CompanyPage";
 import CartPage from "./CartPage";
+import CheckoutPage from "./CheckoutPage";
 
 export default function App() {
   const [hash, setHash] = useState(window.location.hash);
@@ -29,6 +30,10 @@ export default function App() {
 
   if (hash === "#cart") {
     return <CartPage />;
+  }
+
+  if (hash === "#checkout") {
+    return <CheckoutPage />;
   }
 
   return <Home />;
