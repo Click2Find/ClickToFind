@@ -170,6 +170,7 @@ export default function Home() {
 
           <div className="flex items-center gap-2">
             <button
+              type="button"
               aria-label="Sök"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e0ddd3] bg-white transition hover:border-[#a1a58a]"
             >
@@ -177,13 +178,18 @@ export default function Home() {
             </button>
 
             <button
+              type="button"
               aria-label="Kundvagn"
+              onClick={() => {
+                window.location.href = "#cart";
+              }}
               className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e0ddd3] bg-white transition hover:border-[#a1a58a]"
             >
               <ShoppingBag size={20} strokeWidth={1.8} />
             </button>
 
             <button
+              type="button"
               aria-label="Profil"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e0ddd3] bg-white transition hover:border-[#a1a58a]"
             >
@@ -225,7 +231,10 @@ export default function Home() {
                   className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm outline-none placeholder:text-[#999b92] sm:text-base"
                 />
 
-                <button className="rounded-xl bg-[#626b4c] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#535c40]">
+                <button
+                  type="button"
+                  className="rounded-xl bg-[#626b4c] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#535c40]"
+                >
                   Sök
                 </button>
               </div>
@@ -248,7 +257,10 @@ export default function Home() {
               </h2>
             </div>
 
-            <button className="hidden items-center gap-2 text-sm font-semibold text-[#626b4c] sm:flex">
+            <button
+              type="button"
+              className="hidden items-center gap-2 text-sm font-semibold text-[#626b4c] sm:flex"
+            >
               Visa alla
               <ArrowRight size={17} />
             </button>
