@@ -2,18 +2,52 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, Heart, ShoppingBag, Star } from "lucide-react";
 
 const FAVORITE_KEY = "clicktofind-favorite-handgjort-doftljus";
+const CART_KEY = "clicktofind-cart";
 
 export default function ProductDetail() {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
 
   useEffect(() => {
     setIsFavorite(localStorage.getItem(FAVORITE_KEY) === "true");
+
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+    setIsInCart(
+      cart.some(
+        (item: { name: string }) => item.name === "Handgjort doftljus"
+      )
+    );
   }, []);
 
   const toggleFavorite = () => {
     const newValue = !isFavorite;
+
     setIsFavorite(newValue);
     localStorage.setItem(FAVORITE_KEY, String(newValue));
+  };
+
+  const addToCart = () => {
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+    const product = {
+      name: "Handgjort doftljus",
+      company: "Nordic Candle UF",
+      price: 149,
+      image:
+        "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=80",
+    };
+
+    const alreadyInCart = cart.some(
+      (item: { name: string }) => item.name === product.name
+    );
+
+    if (!alreadyInCart) {
+      cart.push(product);
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    setIsInCart(true);
   };
 
   return (
@@ -74,10 +108,12 @@ export default function ProductDetail() {
             <div className="mt-8 flex gap-3">
               <button
                 type="button"
+                onClick={addToCart}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#626b4c] px-6 py-4 font-semibold text-white transition hover:bg-[#535c40]"
               >
                 <ShoppingBag size={20} />
-                Lägg i kundvagn
+
+                {isInCart ? "Finns i kundvagnen" : "Lägg i kundvagn"}
               </button>
 
               <button
