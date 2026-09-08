@@ -11,13 +11,32 @@ export default function ProductDetail() {
   useEffect(() => {
     setIsFavorite(localStorage.getItem(FAVORITE_KEY) === "true");
 
-    const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    try {
+      const savedCart = localStorage.getItem(CART_KEY);
 
-    setIsInCart(
-      cart.some(
-        (item: { name: string }) => item.name === "Handgjort doftljus"
-      )
-    );
+      if (!savedCart) {
+        setIsInCart(false);
+        return;
+      }
+
+      const cart = JSON.parse(savedCart);
+
+      if (!Array.isArray(cart)) {
+        localStorage.removeItem(CART_KEY);
+        setIsInCart(false);
+        return;
+      }
+
+      setIsInCart(
+        cart.some(
+          (item: { name?: string }) =>
+            item?.name === "Handgjort doftljus"
+        )
+      );
+    } catch {
+      localStorage.removeItem(CART_KEY);
+      setIsInCart(false);
+    }
   }, []);
 
   const toggleFavorite = () => {
@@ -28,8 +47,6 @@ export default function ProductDetail() {
   };
 
   const addToCart = () => {
-    const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-
     const product = {
       name: "Handgjort doftljus",
       company: "Nordic Candle UF",
@@ -38,8 +55,24 @@ export default function ProductDetail() {
         "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1200&q=80",
     };
 
+    let cart: typeof product[] = [];
+
+    try {
+      const savedCart = localStorage.getItem(CART_KEY);
+
+      if (savedCart) {
+        const parsedCart = JSON.parse(savedCart);
+
+        if (Array.isArray(parsedCart)) {
+          cart = parsedCart;
+        }
+      }
+    } catch {
+      cart = [];
+    }
+
     const alreadyInCart = cart.some(
-      (item: { name: string }) => item.name === product.name
+      (item) => item?.name === product.name
     );
 
     if (!alreadyInCart) {
@@ -113,7 +146,9 @@ export default function ProductDetail() {
               >
                 <ShoppingBag size={20} />
 
-                {isInCart ? "Finns i kundvagnen" : "Lägg i kundvagn"}
+                {isInCart
+                  ? "Finns i kundvagnen"
+                  : "Lägg i kundvagn"}
               </button>
 
               <button
