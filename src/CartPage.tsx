@@ -63,7 +63,9 @@ export default function CartPage() {
 
   const removeItem = (index: number) => {
     const newCart = [...cart];
+
     newCart.splice(index, 1);
+
     saveCart(newCart);
   };
 
@@ -213,6 +215,9 @@ export default function CartPage() {
 
               <button
                 type="button"
+                onClick={() => {
+                  window.location.href = "#checkout";
+                }}
                 className="mt-7 w-full rounded-xl bg-[#626b4c] px-6 py-4 font-semibold text-white transition hover:bg-[#535c40]"
               >
                 Gå till kassan
